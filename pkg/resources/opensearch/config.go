@@ -95,6 +95,15 @@ func (r *Reconciler) opensearchConfigSecret() resources.Resource {
 		},
 	}
 
+	if r.opensearchCluster.Spec.ExtraConfig != nil {
+		if extraOpenSearchConfig, ok := r.opensearchCluster.Spec.ExtraConfig["opensearch.yml"]; ok {
+			secret.StringData["opensearch.yml"] = defaultConfig + extraOpenSearchConfig
+		}
+		if extraLogginghConfig, ok := r.opensearchCluster.Spec.ExtraConfig["logging.yml"]; ok {
+			secret.StringData["logging.yml"] = defaultLoggingConfig + extraLogginghConfig
+		}
+	}
+
 	ctrl.SetControllerReference(r.opensearchCluster, secret, r.client.Scheme())
 	return resources.Present(secret)
 }

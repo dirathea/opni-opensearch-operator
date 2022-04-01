@@ -45,6 +45,7 @@ type OpensearchClusterSpec struct {
 	Client             OpensearchWorkloadOptions `json:"client,omitempty"`
 	GlobalNodeSelector map[string]string         `json:"globalNodeSelector,omitempty"`
 	GlobalTolerations  []corev1.Toleration       `json:"globalTolerations,omitempty"`
+	ExtraConfig        map[string]string         `json:"extraConfig,omitempty"`
 }
 
 type OpensearchWorkloadOptions struct {
